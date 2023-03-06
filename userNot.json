@@ -1,0 +1,122 @@
+[
+    {
+      "gender": "female",
+      "height": 150,
+      "eye_color": "brown",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/beard.png"
+    },
+    {
+      "name": "Álvarez Pedro",
+      "height": 150,
+      "eye_color": "blue",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/bold.png"
+    },
+    {
+      "name": "Ochoa Laura",
+      "gender": "female",
+      "eye_color": "orange",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/blondie.png"
+    },
+    {
+      "name": "Villada Mateo",
+      "gender": "male",
+      "height": 170,
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/suit.png"
+    },
+    {
+      "name": "Marín Natalia",
+      "gender": "female",
+      "height": 182,
+      "eye_color": "blue-gray"
+    },
+    {
+      "name": "Valencia Juan",
+      "gender": "male",
+      "height": 160,
+      "eye_color": "black"
+    },
+    {
+      "name": "Villa Valentina",
+      "gender": "female",
+      "height": 172,
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/blondie.png"
+    },
+    {
+      "name": "Flórez Juan",
+      "gender": "n/a",
+      "eye_color": "yellow",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/bold.png"
+    },
+    {
+      "name": "Cardona Yeison",
+      "height": 177,
+      "eye_color": "brown",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/suit.png"
+    },
+    {
+      "gender": "male",
+      "height": 180,
+      "eye_color": "orange",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/suit.png"
+    },
+    {
+      "gender": "female",
+      "height": 88,
+      "eye_color": "brown",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/brunette.png"
+    },
+    {
+      "name": "Gallego Blanca",
+      "height": 250,
+      "eye_color": "brown",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/blondie.png"
+    },
+    {
+      "name": "Álvarez Pedro",
+      "gender": "male",
+      "eye_color": "yellow",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/bold.png"
+    },
+    {
+      "name": "Ochoa Laura",
+      "gender": "female",
+      "height": 228,
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/brunette.png"
+    },
+    {
+      "name": "Villada Mateo",
+      "gender": "male",
+      "height": 183,
+      "eye_color": "brown"
+    },
+    {
+      "name": "Marín Natalia",
+      "gender": "female",
+      "height": 96,
+      "eye_color": "red"
+    },
+    {
+      "name": "Valencia Juan",
+      "gender": "male",
+      "height": 66,
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/beard.png"
+    },
+    {
+      "name": "Flórez Juan",
+      "gender": "male",
+      "eye_color": "brown",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/suit.png"
+    },
+    {
+      "name": "Cardona Yeison",
+      "height": 202,
+      "eye_color": "yellow",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/bold.png"
+    },
+    {
+      "gender": "male",
+      "height": 180,
+      "eye_color": "pink",
+      "image": "https://raw.githubusercontent.com/ci2Juan/api-client/main/profiles/suit.png"
+    }
+  ]
