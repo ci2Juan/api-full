@@ -21,7 +21,7 @@ const createUser = async (request, response) => {
     const data = await loadData();
     let idsGenerados = {};
 
-    data.forEach((objeto) => {
+    const newData = data.map((objeto) => {
       let nuevoID;
       do {
         nuevoID =
@@ -29,10 +29,10 @@ const createUser = async (request, response) => {
       } while (idsGenerados[nuevoID]);
       objeto = { id: nuevoID, ...objeto };
       idsGenerados[nuevoID] = true;
-      data.unshift(objeto);
+      return objeto;
     });
 
-    const dataList = data.filter((item) => Object.keys(item).length === 6);
+    const dataList = newData.filter((item) => Object.keys(item).length === 6);
     const promises = dataList.map((item) => {
       return new Promise((resolve, reject) => {
         pool.query(

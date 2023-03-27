@@ -29,6 +29,9 @@
                   <img className="ima" alt={character.image} src={character.image}></img>
                 </p>
                 <p>
+                  <strong>Id: </strong> {character.id || "(id here)"}
+                </p>
+                <p>
                   <strong>Name: </strong> {character.name || "(name here)"}
                 </p>
                 <p>
