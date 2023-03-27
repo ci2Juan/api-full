@@ -16,42 +16,35 @@ const getUsers = (request, response) => {
   });
 };
 
-/* const createUser = async (request, response) => {
-  try {
-    const data = await loadData();
-    const dataList = data.filter((item) => Object.keys(item).length === 5);
-    const promises = dataList.map((item) => {
-      return new Promise((resolve, reject) => {
-        pool.query(
-          "INSERT INTO users (name, gender, height, eye_color, image) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-          [item.name, item.gender, item.height, item.eye_color, item.image],
-          (error, results) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(results.rows[0]);
-            }
-          }
-        );
-      });
-    });
-    const results = await Promise.all(promises);
-    response.status(201).send(`${results.length} users added`);
-  } catch (error) {
-    console.error(error);
-    response.status(500).send("Internal Server Error");
-  }
-}; */
-
 const createUser = async (request, response) => {
   try {
     const data = await loadData();
-    const dataList = data.filter((item) => Object.keys(item).length === 5);
+    let idsGenerados = {};
+
+    data.forEach((objeto) => {
+      let nuevoID;
+      do {
+        nuevoID =
+          Math.floor(Math.random() * (1099999999 - 10000000 + 1)) + 10000000;
+      } while (idsGenerados[nuevoID]);
+      objeto = { id: nuevoID, ...objeto };
+      idsGenerados[nuevoID] = true;
+      data.unshift(objeto);
+    });
+
+    const dataList = data.filter((item) => Object.keys(item).length === 6);
     const promises = dataList.map((item) => {
       return new Promise((resolve, reject) => {
         pool.query(
-          "INSERT INTO users (name, gender, height, eye_color, image) VALUES ($1, $2, $3, $4, $5) RETURNING id, name",
-          [item.name, item.gender, item.height, item.eye_color, item.image],
+          "INSERT INTO users (id, name, gender, height, eye_color, image) VALUES ($1, $2, $3, $4, $5, $6) RETURNING userid, id",
+          [
+            item.id,
+            item.name,
+            item.gender,
+            item.height,
+            item.eye_color,
+            item.image,
+          ],
           (error, results) => {
             if (error) {
               reject(error);
@@ -64,10 +57,10 @@ const createUser = async (request, response) => {
     });
     const results = await Promise.all(promises);
     const users = results.map((result) => ({
+      userId: result.userid,
       id: result.id,
-      name: result.name,
     }));
-    
+
     response.status(201).json(users);
   } catch (error) {
     console.error(error);
