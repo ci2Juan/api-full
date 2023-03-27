@@ -17,22 +17,35 @@ const getUsers = (request, response) => {
 };
 
 const createUser = async (request, response) => {
+  let credentials = [];
   try {
     const data = await loadData();
     let idsGenerados = {};
+    let credentialObject = {
+      userid: "",
+      email: "",
+      password: "",
+    };
 
-    const newData = data.map((objeto) => {
+    const dataFiltered = data.filter((item) => Object.keys(item).length === 5);
+
+    const dataList = dataFiltered.map((objeto) => {
       let nuevoID;
       do {
         nuevoID =
           Math.floor(Math.random() * (1099999999 - 10000000 + 1)) + 10000000;
       } while (idsGenerados[nuevoID]);
       objeto = { id: nuevoID, ...objeto };
+      credentialObject = {
+        userid: nuevoID.toString(),
+        email: nuevoID + "@ci2.co",
+        password: "Pass" + nuevoID + "*",
+      };
+      credentials.push(credentialObject);
       idsGenerados[nuevoID] = true;
       return objeto;
     });
 
-    const dataList = newData.filter((item) => Object.keys(item).length === 6);
     const promises = dataList.map((item) => {
       return new Promise((resolve, reject) => {
         pool.query(
@@ -60,6 +73,34 @@ const createUser = async (request, response) => {
       userId: result.userid,
       id: result.id,
     }));
+
+    const updatedCredentials = credentials.map((credential) => {
+      const user = users.find((user) => user.id === credential.userid);
+      return {
+        ...credential,
+        userid: user.userId,
+      };
+    });
+
+    const credentialPromises = updatedCredentials.map((credential) => {
+      return new Promise((resolve, reject) => {
+        pool.query(
+          "INSERT INTO credentials (userid, email, password) VALUES ($1, $2, $3) RETURNING userid, email, password",
+          [
+            credential.userid,
+            credential.email,
+            credential.password
+          ],
+          (error, results) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(results.rows[0]);
+            }
+          }
+        );
+      });
+    });
 
     response.status(201).json(users);
   } catch (error) {
