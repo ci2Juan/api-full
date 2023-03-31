@@ -86,11 +86,7 @@ const createUser = async (request, response) => {
       return new Promise((resolve, reject) => {
         pool.query(
           "INSERT INTO credentials (userid, email, password) VALUES ($1, $2, $3) RETURNING userid, email, password",
-          [
-            credential.userid,
-            credential.email,
-            credential.password
-          ],
+          [credential.userid, credential.email, credential.password],
           (error, results) => {
             if (error) {
               reject(error);
