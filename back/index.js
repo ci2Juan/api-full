@@ -2,18 +2,22 @@ import express from "express";
 import { v4 as uuidv4 } from "uuid";
 import bodyParser from "body-parser";
 import { Sequelize, DataTypes } from "sequelize";
-import cors from 'cors';
+import cors from "cors";
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 // Configurar la conexión a la base de datos
-const sequelize = new Sequelize("postgres://root:root@localhost:5432/tudata");
+const sequelize = new Sequelize("postgres://root:root@localhost:5432/prueba");
 
 // Definir los modelos de las tablas
 const Person = sequelize.define("Persons", {
-  personid: { type: DataTypes.UUID, primaryKey: true, defaultValue: DataTypes.UUIDV4 },
+  personid: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+  },
   username: DataTypes.STRING,
   userlastname: DataTypes.STRING,
   identdocid: DataTypes.INTEGER,
@@ -31,7 +35,11 @@ const User = sequelize.define("Users", {
     type: DataTypes.UUID,
     references: { model: "Persons", key: "personid" },
   },
-  userid: { type: DataTypes.UUID, primaryKey: true, defaultValue: DataTypes.UUIDV4 },
+  userid: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+  },
   planid: DataTypes.INTEGER,
   userterms: DataTypes.BOOLEAN,
   userpolicies: DataTypes.BOOLEAN,
@@ -46,6 +54,21 @@ const Credential = sequelize.define("Credentials", {
   credentialemail: DataTypes.STRING,
   credentialpass: DataTypes.STRING,
   credentialsenabled: DataTypes.BOOLEAN,
+});
+
+const Company = sequelize.define("Companies", {
+  companyid: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+  },
+  companybusinesName: DataTypes.STRING,
+  companycomercialName: DataTypes.STRING,
+  companynit: DataTypes.STRING,
+  cityid: DataTypes.INTEGER,
+  companyphone: DataTypes.STRING,
+  companyemail: DataTypes.STRING,
+  companyLogo: DataTypes.STRING,
 });
 
 // Definir la ruta para crear la base de datos y las tablas
@@ -120,13 +143,8 @@ app.get("/user", async (req, res) => {
 // Crear un registro en la tabla User
 app.post("/user", async (req, res) => {
   try {
-    const {
-      personid,
-      planid,
-      userterms,
-      userpolicies,
-      userdocumentpath,
-    } = req.body;
+    const { personid, planid, userterms, userpolicies, userdocumentpath } =
+      req.body;
     const user = await User.create({
       personid,
       userid: uuidv4(),
@@ -170,6 +188,46 @@ app.post("/credential", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Error al crear un registro en la tabla Credential");
+  }
+});
+
+// Obtener todos los registros de la tabla Company
+app.get("/company", async (req, res) => {
+  try {
+    const companies = await Company.findAll();
+    res.json(companies);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al obtener los registros de la tabla Company");
+  }
+});
+
+// Crear un registro en la tabla Company
+app.post("/company", async (req, res) => {
+  try {
+    const {
+      companybusinesName,
+      companycomercialName,
+      companynit,
+      cityid,
+      companyphone,
+      companyemail,
+      companyLogo,
+    } = req.body;
+    const company = await Company.create({
+      companyid: uuidv4(),
+      companybusinesName,
+      companycomercialName,
+      companynit,
+      cityid,
+      companyphone,
+      companyemail,
+      companyLogo,
+    });
+    res.json(company);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al crear un registro en la tabla Company");
   }
 });
 
