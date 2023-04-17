@@ -13,9 +13,7 @@ services:
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=tudata
-    volumes:
-      - database:/var/lib/postgresql/data
+      - POSTGRES_DB=prueba
     networks:
       - tudata
 
@@ -25,8 +23,6 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
       PGADMIN_DEFAULT_PASSWORD: "admin"
-    volumes:
-      - pgadmin:/var/lib/pgadmin
     ports:
       - "80:80"
     depends_on:
@@ -34,33 +30,29 @@ services:
     networks:
       - tudata
 
-  # Backend container
-  tudata-backend:
-    # Create backend container
-    image: teamidi/tudata_backend:3.0
-    ports:
-      - "5000:5000"
-    container_name: tudata.backend
-    restart: always
-    depends_on:
-      - postgres
-    links:
-      - postgres
-    networks:
-      - tudata
+  # # Backend container
+  # tudata-backend:
+  #   # Create backend container
+  #   image: teamidi/tudata_backend:3.0
+  #   ports:
+  #     - "5000:5000"
+  #   container_name: tudata.backend
+  #   restart: always
+  #   depends_on:
+  #     - postgres
+  #   links:
+  #     - postgres
+  #   networks:
+  #     - tudata
 
-  # Frontend container
-  tudata-frontend: # Name of our service
-    image: teamidi/tudata_frontend:3.0 # path to dockerfile
-    ports: # Port binding to host from docker container
-      - "10000:10000" # Bind port 3000 of host to 3000 of container
-    container_name: tudata-frontend
-    restart: always # What to do if container crashes
-    links:
-      - tudata-backend
-    networks:
-      - tudata
-
-volumes:
-    pgadmin:
-    database:
+  # # Frontend container
+  # tudata-frontend: # Name of our service
+  #   image: teamidi/tudata_frontend:3.0 # path to dockerfile
+  #   ports: # Port binding to host from docker container
+  #     - "10000:10000" # Bind port 3000 of host to 3000 of container
+  #   container_name: tudata-frontend
+  #   restart: always # What to do if container crashes
+  #   links:
+  #     - tudata-backend
+  #   networks:
+  #     - tudata
