@@ -28,7 +28,7 @@ const generateRandomData = () => {
       .replace(/([úüù])/g, "u")
       .replace(/\s/g, "")
       .toLowerCase()}@${faker.internet.domainName()}`;
-    const companyLogo = `https://logosfromtudatacompanies.com/nit/${companynit}`;
+    const companyLogo = `logos/9007689338/logo.png`;
 
     const company = {
       companybusinesName,
